@@ -74,6 +74,7 @@ function randomFill() {
   b = random(255);
   a = random(255);
   fill(r,g,b,a);
+  console.log("changing color and speed...");
 }
 
 function checkLoop() {
@@ -86,7 +87,6 @@ function checkLoop() {
 
 function mousePressed() {
   randomFill();
-  console.log("changing color...");
 }
 
 function keyPressed() {
@@ -94,30 +94,24 @@ function keyPressed() {
     run = !run;
     if (!run) {
       noLoop();
-      //background(bgColor);
       console.log("stopping animation...");
     } else {
       loop();
-      //background(bgColor);
       console.log("starting animation...");
     }
   }
 }
 
 function touchStarted() {
-    run = !run;
-    if (!run) {
-      noLoop();
-      //background(bgColor);
-      console.log("stopping animation...");
-    } else {
-      loop();
-      //background(bgColor);
-      console.log("starting animation...");
-    }
-}
-
-function touchEnded() {
-  randomFill();
-  console.log("changing color...");
+  run = !run;
+  if (!run) {
+    noLoop();
+    //background(bgColor);
+    console.log("stopping animation...");
+  } else {
+    randomFill();
+    loop();
+    //background(bgColor);
+    console.log("starting animation...");
+  }
 }
