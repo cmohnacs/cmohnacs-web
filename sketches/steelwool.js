@@ -103,3 +103,21 @@ function keyPressed() {
     }
   }
 }
+
+function touchStarted() {
+    run = !run;
+    if (!run) {
+      noLoop();
+      //background(bgColor);
+      console.log("stopping animation...");
+    } else {
+      loop();
+      //background(bgColor);
+      console.log("starting animation...");
+    }
+}
+
+function touchEnded() {
+  randomFill();
+  console.log("changing color...");
+}
