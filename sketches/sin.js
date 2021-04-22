@@ -81,24 +81,28 @@ function calcWave() {
 
 function renderWave() {
   // A simple way to draw the wave with an ellipse at each location
-  noStroke();
+  //noStroke();
   fill(255);
-  ellipseMode(CENTER);
+  //ellipseMode(CENTER);
+  stroke(255);
+  strokeWeight(10);
+  strokeCap(ROUND);
+  strokeJoin(ROUND);
+
   for (var x = 0; x < yvalues.length; x++) {
-    /*if ((x  > (width/2)-(minWin/2)) && (x  < (width/2)+(minWin/2))) {
+
+    /*
+    // Change fill inside cirleWindow diameter
+    if ((x  > (width/2)-(minWin/2)) && (x  < (width/2)+(minWin/2))) {
       fill(r,g,b,a);
     }
-    else fill(255);*/
-    ellipse(x * xspacing, height/2 + yvalues[x], 4, 4);
-  }
-}
+    else fill(255);
+    */
 
-function randomFill() {
-  r = random(255);
-  g = random(255);
-  b = random(255);
-  a = random(255);
-  fill(r,g,b,a);
+    //ellipse(x * xspacing, height/2 + yvalues[x], 4, 4);
+
+    line((x * xspacing) - 1, height/2 + yvalues[x-1], x * xspacing, height/2 + yvalues[x]);
+  }
 }
 
 function mousePressed() {
