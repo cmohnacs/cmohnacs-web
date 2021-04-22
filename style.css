@@ -4,7 +4,7 @@ html, body{
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	font-family: "Source Code Pro", AndaleMono, monospace;
+	font-family: "Andale Mono", AndaleMono, monospace;
 	color:#fff;
 	background-color: #000000;
 }
