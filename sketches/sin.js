@@ -1,3 +1,8 @@
+
+var bgColor = 0;
+var bgCircleColor = 156;
+var minWin;
+
 var xspacing = 1; // Distance between each horizontal location
 var w; // Width of entire wave
 var maxwaves = 12; // total # of waves to add together
@@ -15,6 +20,32 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   //frameRate(60);
   colorMode(RGB, 255, 255, 255);
+  randomWaves();
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  //circleWindow();
+  w = width + 16;
+  yvalues = new Array(floor(w / xspacing));
+}
+function draw() {
+  background(bgColor);
+  //circleWindow();
+  //if (frameCount % 50 == 0 ) background(bgColor);
+  calcWave();
+  renderWave();
+}
+
+function circleWindow() {
+  background(bgColor);
+  ellipseMode(CENTER);
+  fill(bgCircleColor);
+  minWin = Math.min(windowWidth, windowHeight);
+  ellipse(width/2, height/2, minWin, minWin);
+}
+
+function randomWaves() {
   w = width + 16;
 
   for (var i = 0; i < maxwaves; i++) {
@@ -24,15 +55,6 @@ function setup() {
   }
 
   yvalues = new Array(floor(w / xspacing));
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
-function draw() {
-  background(0);
-  calcWave();
-  renderWave();
 }
 
 function calcWave() {
@@ -63,6 +85,26 @@ function renderWave() {
   fill(255);
   ellipseMode(CENTER);
   for (var x = 0; x < yvalues.length; x++) {
+    /*if ((x  > (width/2)-(minWin/2)) && (x  < (width/2)+(minWin/2))) {
+      fill(r,g,b,a);
+    }
+    else fill(255);*/
     ellipse(x * xspacing, height/2 + yvalues[x], 4, 4);
+  }
+}
+
+function randomFill() {
+  r = random(255);
+  g = random(255);
+  b = random(255);
+  a = random(255);
+  fill(r,g,b,a);
+}
+
+function mousePressed() {
+  for (var i = 0; i < maxwaves; i++) {
+    amplitude[i] = random(10, 30);
+    var period = random(70, 300); // Num pixels before wave repeats
+    dx[i] = (TWO_PI / period) * xspacing;
   }
 }
