@@ -105,6 +105,7 @@ function renderWave() {
   }
 }
 
+/*
 function mousePressed() {
   for (var i = 0; i < maxwaves; i++) {
     amplitude[i] = random(10, 30);
@@ -112,3 +113,4 @@ function mousePressed() {
     dx[i] = (TWO_PI / period) * xspacing;
   }
 }
+*/
