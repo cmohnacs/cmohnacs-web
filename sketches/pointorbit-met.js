@@ -4,15 +4,15 @@ var bgColor = 0;
 var xOffset, yOffset; // positioning
 
 // POINTS
-var numPoints = 6000;
+var numPoints = 7000;
 var points = [];
 var pointillize;
-var pointSizeStart = 20;      //starting size
+var pointSizeStart = 12;      //starting size
 var pointSizeEnd = 2;         //ending size
 var padding = 150;
 
-var swingMax = 35;
-
+var swingMax = 75;
+var darkness = 10; // r/g/b value for pixels to skip
 
 // FRAME RATE
 var fr = 100; //frameRate
@@ -22,7 +22,8 @@ var frLog = '';
 
 var artImgUrl;
 
-var pt, pa, a;
+var pa, pt, a;
+var yPa, yPt, yA;
 
 
 function preload() {
@@ -42,6 +43,8 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
+    img.resize(img.width * 0.8, img.height * 0.8);
+
     xOffset = (windowWidth - img.width) / 2;
     yOffset = (windowHeight - img.height) / 2;
 
@@ -55,18 +58,22 @@ function setup() {
 
     background(bgColor);
 
+    yPa = height - 80;
+    yPt = height - 50;
+    yA = height - 20;
+
     pt = createP(title);
-    pt.position(20, height * 0.9 + 20 );
+    pt.position(20, yPt);
     pt.style('color', '#696969');
     pt.style('font-size', '12px');
 
     pa = createP(artist);
-    pa.position(20, height * 0.9 -10);
+    pa.position(20, yPa);
     pa.style('color', '#696969');
     pa.style('font-size', '18px');
 
     a = createA(artImgUrl, '[ ]', '_blank');
-    a.position(20, height * 0.9 + 50);
+    a.position(20, yA);
     a.style('color', '#696969');
     a.style('font-size', '10px');
     a.style('z-index', '20');
@@ -90,15 +97,17 @@ function draw() {
 
     frameRateCounter();
 
-    //artworkDisplay();
-
 }
 
 function windowResized () {
   resizeCanvas(windowWidth, windowHeight);
-  pt.position(20, height * 0.9 + 30 );
-  pa.position(20, height * 0.9);
+  pt.position(20, yPt);
+  pa.position(20, yPa);
+  a.position(20, yA);
   background(bgColor);
+
+  xOffset = (windowWidth - img.width) / 2;
+  yOffset = (windowHeight - img.height) / 2;
 
 
 }
@@ -161,15 +170,13 @@ function calcPoint() {
 
   //img.set(x,y, 0);
 
-  if (pix[0] > 20 && pix[1] > 20 && pix[2] > 20) {
+  if (pix[0] > darkness && pix[1] > darkness && pix[2] > darkness) {
 
-    // Modify pixel info, pop art
-    //pix[2] = random(0,120);   //random blue range
-    //pix[iRandom] = cRandom;
     pix[3] = random(80,220);    //random alpha range
 
-    var dx = random(), dy = random(), sx = random(0,18), sy = random(0,18);
+    var dx = random(), dy = random(), sx = random(0,8), sy = random(0,8);
     points.push( {x: x, y: y, color: pix, size: pointillize, dx: dx, dy: dy, sx: sx, sy: sy});
+    //points.push( {x: x + xOffset, y: y + yOffset, color: pix, size: pointillize, dx: dx, dy: dy, sx: sx, sy: sy});
   }
 
 }
@@ -185,19 +192,6 @@ function renderPoint() {
 
   var t =  millis() * 0.0001;
 
-  /*
-  var xTintMap = map(xDist, 0, img.width/4, 50, 0);
-  var yTintMap = map(yDist, 0, img.width/4, 50, 0);
-  var tintMap = xTintMap + yTintMap;
-  tint(255, tintMap);
-
-  if (millis() < 10000) {
-    milMap = map(millis(), 0, 10000, 0, 1);
-    tint(255, tintMap * milMap);
-  }
-  image(img, xOffset, yOffset);
-  */
-
   for(var i= 0; i < points.length; i++ ) {
       var p = points[i];
       fill(p.color);
@@ -205,13 +199,8 @@ function renderPoint() {
       var x = p.x + sin(PI * p.dx + t * p.sx) * xSwing;
       var y = p.y + sin(PI * p.dy + t * p.sy) * ySwing;
       ellipse(x + xOffset, y + yOffset, p.size, p.size);
+      //ellipse(x, y, p.size, p.size);
   }
-}
-
-function artworkDisplay() {
-  // display artwork info
-  fill(255);
-  text(title + ' by ' + artist, 100, 100);
 }
 
 function frameRateCounter () {
