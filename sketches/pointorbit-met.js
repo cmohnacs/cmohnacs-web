@@ -1,3 +1,5 @@
+p5.disableFriendlyErrors = true; // disables FES
+
 var img;
 var bgColor = 0;
 
@@ -7,7 +9,7 @@ var xOffset, yOffset; // positioning
 var numPoints = 7000;
 var points = [];
 var pointillize;
-var pointSizeStart = 12;      //starting size
+var pointSizeStart = 14;      //starting size
 var pointSizeEnd = 2;         //ending size
 var padding = 150;
 
@@ -41,51 +43,50 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight);
 
-    img.resize(img.width * 0.8, img.height * 0.8);
+  img.resize(img.width * 0.8, img.height * 0.8);
 
-    xOffset = (windowWidth - img.width) / 2;
-    yOffset = (windowHeight - img.height) / 2;
+  xOffset = (windowWidth - img.width) / 2;
+  yOffset = (windowHeight - img.height) / 2;
 
-    var x = xOffset;
-    var y = yOffset;
+  var x = xOffset;
+  var y = yOffset;
 
-    loadPixels();
-    frameRate(fr);
-    noStroke();
-    textAlign(LEFT, TOP);
+  loadPixels();
+  frameRate(fr);
+  noStroke();
+  textAlign(LEFT, TOP);
 
-    background(bgColor);
+  background(bgColor);
 
-    yPa = height - 80;
-    yPt = height - 50;
-    yA = height - 20;
+  yPa = height - 90;
+  yPt = height - 60;
+  yA = height - 25;
 
-    pt = createP(title);
-    pt.position(20, yPt);
-    pt.style('color', '#696969');
-    pt.style('font-size', '12px');
+  pa = createP(artist);
+  pa.position(20, yPa);
+  pa.class('art-title');
+  pa.style('color', '#696969');
+  pa.style('font-size', '18px');
 
-    pa = createP(artist);
-    pa.position(20, yPa);
-    pa.style('color', '#696969');
-    pa.style('font-size', '18px');
+  pt = createP(title);
+  pt.position(20, yPt);
+  pt.class('art-title');
+  pt.style('color', '#696969');
+  pt.style('font-size', '12px');
 
-    a = createA(artImgUrl, '[ ]', '_blank');
-    a.position(20, yA);
-    a.style('color', '#696969');
-    a.style('font-size', '10px');
-    a.style('z-index', '20');
+  a = createA(artImgUrl, '[ url ]', '_blank');
+  a.position(20, yA);
+  a.class('art-title');
+  a.style('color', '#696969');
+  a.style('font-size', '10px');
+  a.style('z-index', '20');
 
-
-
-    while(points.length < numPoints){
-      calcPoint();
-    }
-    console.log('Num of points generated: ' + points.length);
-
-
+  while(points.length < numPoints){
+    calcPoint();
+  }
+  console.log('Num of points generated: ' + points.length);
 
 }
 
@@ -95,19 +96,24 @@ function draw() {
 
     renderPoint();
 
-    frameRateCounter();
+    //frameRateCounter();
 
 }
 
 function windowResized () {
   resizeCanvas(windowWidth, windowHeight);
+
+  xOffset = (windowWidth - img.width) / 2;
+  yOffset = (windowHeight - img.height) / 2;
+
+  yPa = height - 90;
+  yPt = height - 60;
+  yA = height - 25;
+
   pt.position(20, yPt);
   pa.position(20, yPa);
   a.position(20, yA);
   background(bgColor);
-
-  xOffset = (windowWidth - img.width) / 2;
-  yOffset = (windowHeight - img.height) / 2;
 
 
 }
@@ -147,7 +153,8 @@ function loadMetArt () {
       artist = artworkRes.artistDisplayName;
       title = artworkRes.title;
       console.log(title + ' by ' + artist);
-      img = loadImage('https://cors-anywhere.herokuapp.com/' + artImgUrl);
+      //img = loadImage('https://cors-anywhere.herokuapp.com/' + artImgUrl);
+      img = loadImage('https://colin-cors-proxy.herokuapp.com/' + artImgUrl);
 
     });
   });

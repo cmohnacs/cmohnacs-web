@@ -27,6 +27,13 @@ h2{
 	font-style:none;
 	text-align: center;
 }
+h4{
+	margin-top: 5px;
+	font-size: 4em;
+	font-weight:normal;
+	font-style:none;
+	text-align: center;
+}
 p{
 	text-align: center;
 }
@@ -55,7 +62,8 @@ p{
 	vertical-align:middle;
 }
 .homelink{
-	margin: 0px 15px 0px 15px;
+	margin: 0 15px 0 15px;
+	/*padding: 15px 0px 15px 0px;*/
 }
 .scrollwindow{
 	border: hidden;
@@ -87,4 +95,63 @@ p{
 	height:100%;
 	max-width: 400px;
 	max-height: 400px;
+}
+p.art-title{
+	text-align: left;
+	text-align-last: left;
+	white-space: nowrap;
+}
+
+.tools {
+    display: flex;
+    /*flex-direction: row;
+    flex-wrap: wrap;*/
+		display:table-cell;
+		text-align: center;
+		vertical-align:middle;
+    width: 85%;
+
+		display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+}
+.tools > div {
+    /*flex-grow: 3;*/
+		background-color: Transparent;
+    width: 33%;
+    max-width: 33%;
+		margin-left: auto;
+  	margin-right: auto;
+}
+.tools img {
+    width: 100%;
+    height: auto; /* use this to display responsive image */
+		align-items: center;
+}
+/*
+button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: 2px solid white;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}*/
+.semi-transparent-button {
+  display: block;
+  box-sizing: border-box;
+  margin: 0 auto;
+	margin-top: 50px;
+  padding: 8px;
+  width: 80%;
+  max-width: 200px;
+  background: #fff; /* fallback color for old browsers */
+	/*background: rgba(255, 255, 255, 0.5);*/
+	background-color: Transparent;
+  /*border-radius: 8px;*/
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: all 0.3s ease-out;
 }
