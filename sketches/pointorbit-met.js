@@ -1,4 +1,3 @@
-var path;
 var img;
 var bgColor = 0;
 
@@ -8,9 +7,11 @@ var xOffset, yOffset; // positioning
 var numPoints = 6000;
 var points = [];
 var pointillize;
-var pointSizeStart = 30;      //starting size
+var pointSizeStart = 20;      //starting size
 var pointSizeEnd = 2;         //ending size
 var padding = 150;
+
+var swingMax = 35;
 
 
 // FRAME RATE
@@ -19,16 +20,27 @@ var frRefresh = 1000; // refresh rate in ms
 var timer = 0;
 var frLog = '';
 
-var imgs = ['mona.jpg', 'pearl.jpg', 'saturn.jpg', 'creation.jpg', 'galilee.jpg'];
+var artImgUrl;
+
+var pt, pa, a;
+
 
 function preload() {
-    path = '../media/' + imgs[floor(random(0,imgs.length))];
-    console.log('loading: ' + path);
-    img = loadImage(path);
+
+  loadMetArt();
+
+
+
+  // Select random image from the list
+  let imgs = ['mona.jpg', 'pearl.jpg', 'saturn.jpg', 'creation.jpg', 'galilee.jpg'];
+  let path = '../media/' + imgs[floor(random(0,imgs.length))];
+  console.log('loading: ' + path);
+  img = loadImage(path);
+
 }
 
 function setup() {
-    var cvn = createCanvas(windowWidth, windowHeight);
+    createCanvas(windowWidth, windowHeight);
 
     xOffset = (windowWidth - img.width) / 2;
     yOffset = (windowHeight - img.height) / 2;
@@ -36,20 +48,38 @@ function setup() {
     var x = xOffset;
     var y = yOffset;
 
+    loadPixels();
     frameRate(fr);
-    textAlign(LEFT, TOP);
     noStroke();
+    textAlign(LEFT, TOP);
+
     background(bgColor);
 
-    loadPixels();
+    pt = createP(title);
+    pt.position(20, height * 0.9 + 20 );
+    pt.style('color', '#696969');
+    pt.style('font-size', '12px');
 
-    //var iRandom = random()
+    pa = createP(artist);
+    pa.position(20, height * 0.9 -10);
+    pa.style('color', '#696969');
+    pa.style('font-size', '18px');
 
-    //for (var i = 0; i < numPoints; i++){
+    a = createA(artImgUrl, '[ ]', '_blank');
+    a.position(20, height * 0.9 + 50);
+    a.style('color', '#696969');
+    a.style('font-size', '10px');
+    a.style('z-index', '20');
+
+
+
     while(points.length < numPoints){
       calcPoint();
     }
     console.log('Num of points generated: ' + points.length);
+
+
+
 }
 
 function draw() {
@@ -60,6 +90,58 @@ function draw() {
 
     frameRateCounter();
 
+    //artworkDisplay();
+
+}
+
+function windowResized () {
+  resizeCanvas(windowWidth, windowHeight);
+  pt.position(20, height * 0.9 + 30 );
+  pa.position(20, height * 0.9);
+  background(bgColor);
+
+
+}
+
+
+
+function loadMetArt () {
+  // Select random image from the MET
+
+  const metUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&medium=Paintings&departmentId=11&q=Painting';
+
+  loadJSON(metUrl, function(metRes) {
+
+    console.log('MET COLLECTION:');
+    console.log(metRes);
+
+    // Random number from total number of works
+    const max = metRes.total-1;
+    console.log("Max: "+max);
+    const min = 0;
+    const random = Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log("Random: "+random);
+    // Retrieve the
+    const picked = metRes.objectIDs[random];
+    console.log("Picked: "+picked);
+
+    const artworkUrl = ('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + picked);
+    loadJSON(artworkUrl, function(artworkRes) {
+      console.log('ARTWORK:');
+      console.log(artworkRes);
+
+      artImgUrl = artworkRes.primaryImageSmall;
+
+      console.log('ART IMG:');
+      console.log(artImgUrl);
+
+      artist = artworkRes.artistDisplayName;
+      title = artworkRes.title;
+      console.log(title + ' by ' + artist);
+      img = loadImage('https://cors-anywhere.herokuapp.com/' + artImgUrl);
+
+    });
+  });
 }
 
 function calcPoint() {
@@ -95,8 +177,8 @@ function calcPoint() {
 function renderPoint() {
   var xDist = abs(mouseX - width/2); //cursor distance from x center
   var yDist = abs(mouseY - height/2); //cursor distance from y center
-  var xSwing = map(xDist, 0, width/2, 0.00, 25);
-  var ySwing = map(yDist, 0, height/2, 0.00, 25);
+  var xSwing = map(xDist, 0, width/2, 0.00, swingMax);
+  var ySwing = map(yDist, 0, height/2, 0.00, swingMax);
   //var xSwing = map(xDist, 0, width/2 , 150, 0);
   //var ySwing = map(yDist, 0, height/2, 150, 0);
   //var xSwing = map(mouseX, 0, width, 150, 0)
@@ -124,6 +206,12 @@ function renderPoint() {
       var y = p.y + sin(PI * p.dy + t * p.sy) * ySwing;
       ellipse(x + xOffset, y + yOffset, p.size, p.size);
   }
+}
+
+function artworkDisplay() {
+  // display artwork info
+  fill(255);
+  text(title + ' by ' + artist, 100, 100);
 }
 
 function frameRateCounter () {
