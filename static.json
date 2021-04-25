@@ -1,0 +1,19 @@
+{
+  "name": "cmohnacs-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmohnacs/cmohnacs-web.git"
+  },
+  "author": "Colin Mohnacs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmohnacs/cmohnacs-web/issues"
+  },
+  "homepage": "https://github.com/cmohnacs/cmohnacs-web#readme"
+}
