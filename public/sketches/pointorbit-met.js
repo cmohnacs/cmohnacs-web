@@ -6,14 +6,14 @@ var bgColor = 0;
 var xOffset, yOffset; // positioning
 
 // POINTS
-var numPoints = 7000;
+var numPoints = 10000;
 var points = [];
 var pointillize;
-var pointSizeStart = 14;      //starting size
+var pointSizeStart = 10;      //starting size
 var pointSizeEnd = 2;         //ending size
 var padding = 150;
 
-var swingMax = 75;
+var swingMax = 65;
 var darkness = 10; // r/g/b value for pixels to skip
 
 // FRAME RATE
@@ -60,8 +60,9 @@ function setup() {
 
   background(bgColor);
 
-  yPa = height - 90;
-  yPt = height - 60;
+  yPa = height - 110;
+  yPt = height - 80;
+  yPd = height - 60;
   yA = height - 25;
 
   pa = createP(artist);
@@ -74,7 +75,14 @@ function setup() {
   pt.position(20, yPt);
   pt.class('art-title');
   pt.style('color', '#696969');
-  pt.style('font-size', '12px');
+  pt.style('font-size', '13px');
+  pt.style('font-style: italic');
+
+  pd = createP(date);
+  pd.position(20, yPd);
+  pd.class('art-title');
+  pd.style('color', '#696969');
+  pd.style('font-size', '12px');
 
   a = createA(artImgUrl, '[ url ]', '_blank');
   a.position(20, yA);
@@ -152,6 +160,8 @@ function loadMetArt () {
 
       artist = artworkRes.artistDisplayName;
       title = artworkRes.title;
+      date = artworkRes.objectDate;
+
       console.log(title + ' by ' + artist);
       //img = loadImage('https://cors-anywhere.herokuapp.com/' + artImgUrl);
       img = loadImage('https://colin-cors-proxy.herokuapp.com/' + artImgUrl);
