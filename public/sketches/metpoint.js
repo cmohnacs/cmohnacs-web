@@ -26,32 +26,20 @@ var artImgUrl;
 
 var pa, pt, a;
 var yPa, yPt, yA;
-<<<<<<< HEAD
-asdfs
-=======
-
->>>>>>> staging
 
 function preload() {
 
   loadMetArt();
 
-
-<<<<<<< HEAD
-
-=======
   /*
->>>>>>> staging
+
   // Select random image from the list
   let imgs = ['mona.jpg', 'pearl.jpg', 'saturn.jpg', 'creation.jpg', 'galilee.jpg'];
   let path = '../media/' + imgs[floor(random(0,imgs.length))];
   console.log('loading: ' + path);
   img = loadImage(path);
-<<<<<<< HEAD
 
-=======
   */
->>>>>>> staging
 }
 
 function setup() {
