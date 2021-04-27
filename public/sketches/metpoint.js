@@ -33,13 +33,13 @@ function preload() {
   loadMetArt();
 
 
-
+  /*
   // Select random image from the list
   let imgs = ['mona.jpg', 'pearl.jpg', 'saturn.jpg', 'creation.jpg', 'galilee.jpg'];
   let path = '../media/' + imgs[floor(random(0,imgs.length))];
   console.log('loading: ' + path);
   img = loadImage(path);
-
+  */
 }
 
 function setup() {
