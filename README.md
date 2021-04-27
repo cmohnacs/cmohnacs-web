@@ -1,6 +1,6 @@
 # cmohnacs-web
 
-Personal website to host discography, generative artworks, and other creations.  Each page has a unique p5.js script as the canvas.  Explore and interact.
+Personal website to host discography, generative artworks, and other projects.  Each page has a unique p5.js script as the canvas.  Explore and interact.
 
 
 ## METpoint
