@@ -67,11 +67,11 @@ p{
 }
 .menubar{
 	text-align: center;
-	padding: 15px 0px 15px 0px
+	padding: 15px 0px 15px 0px;
+
 }
 .homelink{
 	margin: 0 15px 0 15px;
-	/*padding: 15px 0px 15px 0px;*/
 }
 .scrollwindow{
 	border: hidden;
