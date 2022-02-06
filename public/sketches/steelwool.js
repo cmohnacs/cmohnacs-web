@@ -6,12 +6,12 @@ var minWin;
 
 var speed = 2;
 var diameter = 20;
-var initalChunkSize = 100000;
+var initalChunkSize = 10000;
 var chunkSize = 125;
 var x;
 var y;
 
-var run = false;
+var run = true;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
