@@ -7,6 +7,9 @@ html, body{
 	font-family: "Andale Mono", AndaleMono, monospace;
 	color:#fff;
 	background-color: #000000;
+	background-image: url("media/home_portrait.jpg");
+	background-size: cover;
+ 	background-repeat: no-repeat;
 }
 a{
 	color:#fff;
@@ -64,11 +67,11 @@ p{
 }
 .menubar{
 	text-align: center;
-	padding: 15px 0px 15px 0px
+	padding: 15px 0px 15px 0px;
+
 }
 .homelink{
 	margin: 0 15px 0 15px;
-	/*padding: 15px 0px 15px 0px;*/
 }
 .scrollwindow{
 	border: hidden;
